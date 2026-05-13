@@ -1,0 +1,76 @@
+NEFT论文带水印PDF生成说明
+=====================================
+
+由于系统PDF转换工具依赖问题，请使用以下手动方法生成带水印的PDF。
+
+方法一：使用浏览器直接打印（推荐，每页都有水印）
+-----------------------------------------------
+1. 在浏览器（Chrome/Edge/Firefox）中打开文件：
+   E:\work\projs\neft\paper\20260504\neft_20260504_cited_figure.html
+
+2. 按 Ctrl+P 打开打印对话框
+
+3. 在打印设置中：
+   - 选择 "Microsoft Print to PDF" 作为打印机
+   - 勾选 "背景图形" (Background graphics) - 这一步很重要！
+   - 点击 "更多设置" (More settings)
+   - 确保纸张方向为纵向 (Portrait)
+   - 确保边距设置为 "最小" (Minimum) 或 "无" (None)
+
+4. 点击 "打印" 按钮，保存为：
+   E:\work\projs\neft\paper\20260504\neft_20260504_cited_figure_watermarked.pdf
+
+说明：由于HTML中已设置了水印CSS，且使用fixed定位，
+   勾选"背景图形"后，水印应该会出现在每一页上。
+
+方法二：安装PDF转换工具
+-----------------------------------------------
+如需自动化转换，请先安装以下工具之一：
+
+选项A：使用pdfkit
+  pip install pdfkit
+  wkhtmltopdf 需要单独安装
+
+选项B：使用weasyprint
+  pip install weasyprint
+  pip install pango
+  （注意：weasyprint在Windows上需要额外的依赖库）
+
+选项C：使用Playwright
+  pip install playwright
+  playwright install chromium
+
+安装后，运行以下Python脚本：
+
+from playwright.sync_api import sync_playwright
+import time
+
+html_file = r"E:\work\projs\neft\paper\20260504\neft_20260504_cited_figure.html"
+output_pdf = r"E:\work\projs\neft\paper\20260504\neft_20260504_cited_figure_watermarked.pdf"
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
+    page.goto(f"file:///{html_file}")
+    time.sleep(2)  # 等待水印渲染
+    page.pdf(output_path=output_pdf)
+    browser.close()
+    print(f"PDF已保存到: {output_pdf}")
+
+文件说明
+=====================================
+已修改的HTML文件：
+  E:\work\projs\neft\paper\20260504\neft_20260504_cited_figure.html
+
+已添加的CSS水印样式：
+  - 屏幕显示：浅灰色 (10%透明度)
+  - 打印显示：浅灰色 (10%透明度)，每页固定位置
+  - 水印内容：blade.zhang.301
+
+如需调整水印样式，请编辑HTML文件中的CSS：
+  - 修改 .color 值调整颜色
+  - 修改 opacity 值调整透明度 (0.1 = 10%)
+  - 修改 font-size 值调整字体大小
+
+当前CSS位置：
+  在 <style> 标签中，位于 </style> 标签之前的最后部分

@@ -1,12 +1,12 @@
 import os
 from playwright.sync_api import sync_playwright
 
-html_path = r"E:\work\projs\neft\paper\20260512\neft_20260512.html"
-pdf_path = r"E:\work\projs\neft\paper\20260512\neft_20260512.pdf"
+html_path = r"E:\work\projs\neft\paper\20260512\neft_20260514.html"
+pdf_path = r"E:\work\projs\neft\paper\20260512\neft_20260514.pdf"
 
 html_url = "file:///" + html_path.replace("\\", "/")
 
-edge_path = r"C:\Program Files (x86)\Microsoft\EdgeCore\147.0.3912.98\msedge.exe"
+edge_path = r"C:\Program Files (x86)\Microsoft\EdgeCore\148.0.3967.54\msedge.exe"
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True, executable_path=edge_path)

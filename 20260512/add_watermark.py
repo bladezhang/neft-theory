@@ -2,8 +2,8 @@ import fitz
 import math
 import os
 
-src_path = r"E:\work\projs\neft\paper\20260512\neft_20260512.pdf"
-out_path = r"E:\work\projs\neft\paper\20260512\neft_20260512_watermark.pdf"
+src_path = r"E:\work\projs\neft\paper\20260512\neft_20260514.pdf"
+out_path = r"E:\work\projs\neft\paper\20260512\neft_20260514_watermark.pdf"
 wm_temp = r"E:\work\projs\neft\paper\20260512\_wm_overlay.pdf"
 
 watermark_text = "blade.zhang.301"

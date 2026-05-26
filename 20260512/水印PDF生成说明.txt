@@ -74,3 +74,6 @@ with sync_playwright() as p:
 
 当前CSS位置：
   在 <style> 标签中，位于 </style> 标签之前的最后部分
+
+
+现在生成的看不到水印。需要重新生成。75号字体，每个页面显示一个“bladezhang301”字符串，从左下到右上，铺满页面
